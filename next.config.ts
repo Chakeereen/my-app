@@ -6,7 +6,7 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'server-g8da.onrender.com',
-        port: "1337",
+        port: "",
         pathname: "/uploads/**/*",
       },
 
