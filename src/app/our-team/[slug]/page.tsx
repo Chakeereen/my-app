@@ -70,9 +70,9 @@ interface UserProfile {
 export default async function TeamMemberDetail({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const { slug } = params;
+  const { slug } = await params;
 
   if (!slug) return <p>No member found</p>;
 
