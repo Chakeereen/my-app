@@ -31,7 +31,7 @@ function TeamMemberCard({
     slug,
 }: Readonly<TeamMemberProps>) {
     // กำหนด URL ของรูปภาพ โดยใช้ API_URL ถ้าเซ็ตไว้ มิฉะนั้นใช้ localhost
-    const imageUrl = `${process.env.API_URL ?? "https://server-g8da.onrender.com"}${photo.url}`;
+    const imageUrl = `${process.env.API_URL ?? 'https://server-g8da.onrender.com'}${photo.url}`;
     
     return (
       <Link
