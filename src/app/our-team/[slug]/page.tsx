@@ -1,49 +1,49 @@
 import qs from "qs";
 
 import { BlockRenderer, TeamPageBlock } from "@/app/components/blocks";
-
+import { fetchApi } from "@/app/utils/fetch";
 async function getTeamMember(slug: string) {
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:1337";
-  const path = "/api/team-members";
+  const res = await fetchApi("/api/team-members", {},{
+       photo: {
+                   fields: ['alternativeText', 'name', 'url']
+                 }, blocks: {
+                        on: {
+                          "blocks.testimonial": {
+                            populate: {
+                              photo: {
+                                fields: ["alternativeText", "name", "url"],
+                              },
+                            },
+                          },
+                          "blocks.spoiler": {
+                            populate: true,
+                          },
+                          "blocks.rich-text": {
+                            populate: true,
+                          },
+                        },
+                      },
+                    },
+                      {
+                      slug: {
+                              $eq: slug, // This is the slug for our team member
+                            },
+                      
+     }) as any;
+ 
+ 
+  //   filters: {
+  //     slug: {
+  //       $eq: slug, // This is the slug for our team member
+  //     },
+  //   },
+  // });
 
-  const url = new URL(path, baseUrl);
 
-  url.search = qs.stringify({
-    populate: {
-      photo: {
-        fields: ["alternativeText", "name", "url"],
-      },
-      blocks: {
-        on: {
-          "blocks.testimonial": {
-            populate: {
-              photo: {
-                fields: ["alternativeText", "name", "url"],
-              },
-            },
-          },
-          "blocks.spoiler": {
-            populate: true,
-          },
-          "blocks.rich-text": {
-            populate: true,
-          },
-        },
-      },
-    },
-    filters: {
-      slug: {
-        $eq: slug, // This is the slug for our team member
-      },
-    },
-  });
+  
 
-  const res = await fetch(url);
-
-  if (!res.ok) throw new Error("Failed to fetch team members");
-
-  const data = await res.json();
-  const teamMember = data?.data[0];
+  console.log(res.data);
+  const teamMember = res.data?.data[0];
   console.dir(teamMember, { depth: null });
   return teamMember;
 }
@@ -72,9 +72,9 @@ export default async function TeamMemberDetail({
 }: {
   params: { slug: string };
 }) {
-  const { slug } = params;
+  const { slug } =  params;
 
-  if (!slug) return <p>No member found</p>;
+  if (!slug) return <p> No member found</p>;
 
   const teamMember = (await getTeamMember(slug)) as UserProfile;
 
