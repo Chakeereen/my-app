@@ -3,19 +3,14 @@ import type { NextConfig } from "next";
 const nextConfig = {
   images: {
     remotePatterns: [
-      // {
-      //   protocol: "http",
-      //   hostname: "localhost",
-      //   port: "1337",
-      //   pathname: "/uploads/**/*",
-      // },
-
       {
-        protocol: "https",
-        hostname: "server-g8da.onrender.com",
-        port: "",
+        protocol: 'https',
+        hostname: 'server-g8da.onrender.com',
+        port: "1337",
         pathname: "/uploads/**/*",
       },
+
+  
     ],
   },
 };
