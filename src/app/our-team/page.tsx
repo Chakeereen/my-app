@@ -48,6 +48,7 @@ interface TeamMemberProps {
       </Link>
     );
   }
+
 async function getTeamMembers() {
     const res = await fetchApi("/api/team-members", {},{
       photo: {
@@ -90,7 +91,8 @@ async function getTeamMembers() {
     if (res.status !== 200) {
       return res.data;
   }
-}
+}   
+    // console.log(res.data);
     return res.data;
   }
   

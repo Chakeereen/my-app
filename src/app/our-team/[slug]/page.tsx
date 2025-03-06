@@ -72,9 +72,9 @@ export default async function TeamMemberDetail({
 }: {
   params: { slug: string };
 }) {
-  const { slug } =  params;
+  const { slug } = params;
 
-  if (!slug) return <p> No member found</p>;
+  if (!slug) return <p>No member found</p>;
 
   const teamMember = (await getTeamMember(slug)) as UserProfile;
 
